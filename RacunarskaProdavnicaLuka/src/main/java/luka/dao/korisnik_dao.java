@@ -41,41 +41,32 @@ public class korisnik_dao {
         return korisnici;
     }
 
-    
-    public void insert(korisnik k,Connection con) throws prodavnica_exception {
-        
-        String sql = "INSERT INTO korisnik (ime_i_prezime, username,password e_mail, datum_rodjenja, stanje_racuna, kolicina_potrosenog_novca) " +
-                     "VALUES (?, ?, ?, ?, ?, ?,?)";
-
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
+  
+    public void registracija(korisnik k, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
+
            
-            conn = rm.getConnection();
+            ps = con.prepareStatement("INSERT INTO korisnik(ime_i_prezime, username, password, e_mail, datum_rodjenja,stanje_racuna,kolicina_potrosenog_novca) VALUES(?,?,?,?,?,?,?)");
+            
+            ps.setString(1, k.getImeIPrezime());
+            ps.setString(2, k.getUsername());
+            ps.setString(3, k.getPassword());
+            ps.setString(4, k.getEmail());
+            ps.setString(5, k.getDatumRodjenja());
+            ps.setInt(6, k.getStanjeRacuna());
+            ps.setInt(7, k.getKolicinaPotrosenogNovca());
+            
+            ps.executeUpdate();
 
-            pstmt = conn.prepareStatement(sql);
- 
-            pstmt.setString(1, k.getImeIPrezime());
-            pstmt.setString(2, k.getUsername());
-            pstmt.setString(2, k.getPassword());
-            pstmt.setString(3, k.getEmail());
-            pstmt.setString(4, k.getDatumRodjenja());
-            pstmt.setDouble(5, k.getStanjeRacuna());
-            pstmt.setDouble(6, k.getKolicinaPotrosenogNovca());
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            throw new prodavnica_exception("Error inserting korisnik", e);
         } finally {
-            try {
-                rm.closeResources(null, pstmt);
-                rm.closeConnection(conn);
-            } catch (SQLException e) {
-                throw new prodavnica_exception("Error closing resources", e);
-            }
+            rm.closeResources(rs, ps);
         }
     }
+    
+    
+    
     public korisnik find(String username, Connection con) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;

@@ -32,7 +32,9 @@ public class korisnik_rest {
         return customerService.getAllKorisnici();  
     }
     
-    /*
+  
+    
+    
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -40,7 +42,7 @@ public class korisnik_rest {
             customerService.addNewCustomer(k);
             return Response.ok().build();
     }
-*/
+
     
 }
 

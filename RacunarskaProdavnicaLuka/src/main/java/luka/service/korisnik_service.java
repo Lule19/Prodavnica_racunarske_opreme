@@ -37,7 +37,7 @@ public class korisnik_service {
         }
     }
     
-    /*
+    
     public void addNewCustomer(korisnik k) throws prodavnica_exception {
         Connection con = null;
         try {
@@ -46,7 +46,7 @@ public class korisnik_service {
             
             con.setAutoCommit(false);
 
-            korisnik_dao.getInstance().insert(k, con);
+            korisnik_dao.getInstance().registracija(k, con);
 
             con.commit();
         } catch (SQLException ex) {
@@ -56,6 +56,6 @@ public class korisnik_service {
             rm.closeConnection(con);
         }
     }
-*/
+
 }
 
