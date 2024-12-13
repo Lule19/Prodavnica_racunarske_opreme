@@ -26,6 +26,7 @@ public class korisnik_rest {
     public korisnik getCustomerById(@PathParam("username") String username) throws prodavnica_exception {
         return customerService.findCustomer(username);
     }
+    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<korisnik> getAllKorisnici() throws prodavnica_exception {

@@ -21,10 +21,18 @@ public class proizvod_rest {
     private final proizvod_service customerService = proizvod_service.getInstance();
     
     @GET
-    @Path("/{naziv}")
+    @Path("/naziv/{naziv}")
+
     @Produces(MediaType.APPLICATION_JSON)
-    public proizvod getCustomerByName(@PathParam("naziv") String naziv) throws prodavnica_exception {
+    public proizvod getProizvodByName(@PathParam("naziv") String naziv) throws prodavnica_exception {
         return customerService.findProizvod(naziv);
+    }
+    
+    @GET
+    @Path("/id/{proizvod_id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public proizvod getProizvodByID(@PathParam("proizvod_id") int proizvod_id) throws prodavnica_exception {
+        return customerService.findProizvodId(proizvod_id);
     }
     
     @GET

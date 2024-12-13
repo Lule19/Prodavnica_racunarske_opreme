@@ -25,7 +25,7 @@ public class proizvod_service {
         return proizvodDAO.getAllProizvodi();  // Pozivanje metode iz DAO klase
     }
     
-    
+    /*pretraga proizvoda po id-u*/
     public proizvod findProizvod(String naziv) throws prodavnica_exception {
         Connection con = null;
         try {
@@ -35,6 +35,21 @@ public class proizvod_service {
 
         } catch (SQLException ex) {
             throw new prodavnica_exception("Failed to find customer with username " + naziv, ex);
+        } finally {
+            rm.closeConnection(con);
+        }
+    }
+    
+    /*pretraga proizvoda po ID-u za DETALJAN PRIKAZ PROIZVODA*/
+    public proizvod findProizvodId(int proizvod_id) throws prodavnica_exception {
+        Connection con = null;
+        try {
+            con = rm.getConnection();
+
+            return proizvod_dao.getInstance().findId(proizvod_id, con);
+
+        } catch (SQLException ex) {
+            throw new prodavnica_exception("Failed to find customer with username " + proizvod_id, ex);
         } finally {
             rm.closeConnection(con);
         }
