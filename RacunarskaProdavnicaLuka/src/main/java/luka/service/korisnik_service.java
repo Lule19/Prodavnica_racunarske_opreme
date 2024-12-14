@@ -56,20 +56,6 @@ public class korisnik_service {
             rm.closeConnection(con);
         }
     }
-    
-    
-    public String login(String username, String password) throws prodavnica_exception {
-        Connection con = null;
-        try {
-            con = rm.getConnection();
-            return korisnik_dao.getInstance().prijavljivanje(username, password, con);
-        } catch (SQLException ex) {
-            throw new prodavnica_exception("Prijavljivanje nije uspesno za korisnika " + username, ex);
-        } finally {
-            rm.closeConnection(con);
-        }
-}
-    
 
 }
 

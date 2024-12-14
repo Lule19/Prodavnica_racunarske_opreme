@@ -65,28 +65,7 @@ public class korisnik_dao {
         }
     }
     
-    public String prijavljivanje(String username, String password, Connection con) throws SQLException{
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        
-        String ime_i_prezime;
-        String prijava;
-        try {
-            ps = con.prepareStatement("SELECT ime_i_prezime FROM korisnik WHERE username =? AND password = ?");
-            ps.setString(1,username);
-            ps.setString(2,password);
-            rs = ps.executeQuery();
-             if (rs.next()) {
-                 
-                 ime_i_prezime = rs.getString("ime_i_prezime");
-                 prijava = "dobrodosao" + "," + ime_i_prezime;
-                 return prijava;
-        } 
-        } finally {
-            rm.closeResources(rs, ps);
-        }
-        return null;
-    }
+    
     
     public korisnik find(String username, Connection con) throws SQLException {
         PreparedStatement ps = null;

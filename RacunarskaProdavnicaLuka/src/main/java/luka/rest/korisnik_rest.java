@@ -26,12 +26,14 @@ public class korisnik_rest {
     public korisnik getCustomerById(@PathParam("username") String username) throws prodavnica_exception {
         return customerService.findCustomer(username);
     }
-    
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<korisnik> getAllKorisnici() throws prodavnica_exception {
         return customerService.getAllKorisnici();  
     }
+    
+  
+    
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -39,18 +41,6 @@ public class korisnik_rest {
     public Response addCustomer(korisnik k) throws prodavnica_exception{
             customerService.addNewCustomer(k);
             return Response.ok().build();
-    }
-    
-    @POST
-    @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN) 
-    public Response login(korisnik k) throws prodavnica_exception {
-        String rezultat = customerService.login(k.getUsername(), k.getPassword());
-        if (rezultat != null) {
-            return Response.ok(rezultat).build(); 
-        }
-        return Response.status(Response.Status.UNAUTHORIZED).entity("Netacno korisnicko ime ili lozinka").build();
     }
 
     

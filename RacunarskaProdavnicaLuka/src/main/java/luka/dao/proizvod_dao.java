@@ -58,25 +58,6 @@ public class proizvod_dao {
     }
     
     
-    public proizvod findId(int proizvod_id, Connection con) throws SQLException {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        proizvod p = null;
-        try {
-            ps = con.prepareStatement("SELECT * FROM proizvod where proizvod_id=?");
-            ps.setInt(1, proizvod_id);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-               
-                p = new proizvod(proizvod_id, rs.getString("naziv"), rs.getInt("cena"),rs.getString("vrsta_opreme"), rs.getInt("stanje_na_lageru"));
-            }
-        } finally {
-            rm.closeResources(rs, ps);
-        }
-        return p;
-    }
-    
-    
     
     
 }
