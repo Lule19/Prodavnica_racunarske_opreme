@@ -29,7 +29,7 @@ public class korisnik implements Serializable {
         this.kolicina_potrosenog_novca = kolicina_potrosenog_novca;
     }
 
-  
+  /*
     public korisnik(String ime_i_prezime, String username,String password, String e_mail, String datum_rodjenja, int stanje_racuna, int kolicina_potrosenog_novca) {
         this.ime_i_prezime = ime_i_prezime;
         this.username = username;
@@ -39,8 +39,10 @@ public class korisnik implements Serializable {
         this.stanje_racuna = stanje_racuna;
         this.kolicina_potrosenog_novca = kolicina_potrosenog_novca;
     }
+*/
 
-   
+    
+    
     public int getkorisnikId() {
         return korisnikId;
     }

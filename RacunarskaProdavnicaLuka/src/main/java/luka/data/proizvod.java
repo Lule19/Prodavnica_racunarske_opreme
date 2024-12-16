@@ -13,6 +13,7 @@ public class proizvod implements Serializable {
     private int cena;
     private String vrsta_opreme;
     private int stanje_na_lageru;
+    private int count;
 
    
     public proizvod() {
@@ -75,6 +76,9 @@ public class proizvod implements Serializable {
     public void setStanje_na_lageru(int stanje_na_lageru) {
         this.stanje_na_lageru = stanje_na_lageru;
     }
+    
+    
+    
 
     @Override
     public String toString() {

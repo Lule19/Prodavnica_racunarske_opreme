@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
+import luka.data.pretraga;
 import luka.data.proizvod;
 import luka.exception.prodavnica_exception;
 import luka.service.proizvod_service;
@@ -27,11 +28,16 @@ public class proizvod_rest {
         return customerService.findProizvod(naziv);
     }
     
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<proizvod> getAllProizvodi() throws prodavnica_exception {
-        return customerService.getAllProizvodi();  
-    }
+    /*
     
+    FIND PO ID DETALJAN PRIKAz SA KOMPA
+    */
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<proizvod> filtriranaPretraga(pretraga p) throws prodavnica_exception {
+    return customerService.getInstance().findProducts(p);
+    }
     
 }

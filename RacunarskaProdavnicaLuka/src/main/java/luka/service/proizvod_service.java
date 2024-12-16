@@ -7,6 +7,7 @@ import luka.data.proizvod;
 import luka.exception.prodavnica_exception;
 import java.util.List;
 import luka.dao.rm;
+import luka.data.pretraga;
 
 public class proizvod_service {
     
@@ -21,9 +22,9 @@ public class proizvod_service {
     }
 
     // Metoda koja vraća sve korisnike
-    public List<proizvod> getAllProizvodi() throws prodavnica_exception {
-        return proizvodDAO.getAllProizvodi();  // Pozivanje metode iz DAO klase
-    }
+     public List<proizvod> findProducts(pretraga p) throws prodavnica_exception {
+    return proizvodDAO.getInstance().pretraga(p);
+}
     
     
     public proizvod findProizvod(String naziv) throws prodavnica_exception {

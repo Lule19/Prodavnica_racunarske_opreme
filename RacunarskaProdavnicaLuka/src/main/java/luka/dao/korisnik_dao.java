@@ -65,7 +65,27 @@ public class korisnik_dao {
         }
     }
     
-    
+     public String login(String username, String password, Connection con) throws SQLException{
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        String ime_i_prezime;
+        String s;
+        try {
+            ps = con.prepareStatement("SELECT ime_i_prezime FROM korisnik WHERE username =? AND password = ?");
+            ps.setString(1,username);
+            ps.setString(2,password);
+            rs = ps.executeQuery();
+             if (rs.next()) {
+                 ime_i_prezime = rs.getString("ime_i_prezime");
+                 s = "Dobrodosao u najjacu racunarsku prodavnicu " + ime_i_prezime;
+                 return s;
+        } 
+        } finally {
+            rm.closeResources(rs, ps);
+        }
+        return null;
+    }
     
     public korisnik find(String username, Connection con) throws SQLException {
         PreparedStatement ps = null;
@@ -83,6 +103,61 @@ public class korisnik_dao {
             rm.closeResources(rs, ps);
         }
         return k;
+    }
+    
+    public korisnik findID(int korisnik_id, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        korisnik k = null;
+        try {
+            ps = con.prepareStatement("SELECT * FROM korisnik where korisnik_id=?");
+            ps.setInt(1, korisnik_id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+               
+                k = new korisnik(korisnik_id ,rs.getString("ime_i_prezime"), rs.getString("username"),rs.getString("password"), rs.getString("e_mail"),rs.getString("datum_rodjenja"), rs.getInt("stanje_racuna"), rs.getInt("kolicina_potrosenog_novca"));
+            }
+        } finally {
+            rm.closeResources(rs, ps);
+        }
+        return k;
+    }
+
+    public void update(korisnik customer, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+
+            ps = con.prepareStatement("UPDATE korisnik SET stanje_racuna=? WHERE username=?");
+            ps.setInt(1, customer.getStanjeRacuna());
+            ps.setString(2, customer.getUsername());
+            
+            
+            ps.executeUpdate();
+
+            
+
+        } finally {
+            rm.closeResources(null, ps);
+        }
+    }
+    
+    
+    public void updatePotroseno(korisnik customer, Connection con) throws SQLException {
+        PreparedStatement ps = null;
+        try {
+
+            ps = con.prepareStatement("UPDATE korisnik SET kolicina_potrosenog_novca=? WHERE username=?");
+            ps.setInt(1, customer.getKolicinaPotrosenogNovca());
+            ps.setString(2, customer.getUsername());
+            
+            
+            ps.executeUpdate();
+
+            
+
+        } finally {
+            rm.closeResources(null, ps);
+        }
     }
 
     

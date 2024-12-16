@@ -37,6 +37,20 @@ public class korisnik_service {
         }
     }
     
+    public korisnik findCustomerID(int korisnik_id) throws prodavnica_exception {
+        Connection con = null;
+        try {
+            con = rm.getConnection();
+
+            return korisnik_dao.getInstance().findID(korisnik_id, con);
+
+        } catch (SQLException ex) {
+            throw new prodavnica_exception("Failed to find customer with id " + korisnik_id, ex);
+        } finally {
+            rm.closeConnection(con);
+        }
+    }
+    
     
     public void addNewCustomer(korisnik k) throws prodavnica_exception {
         Connection con = null;
@@ -52,6 +66,20 @@ public class korisnik_service {
         } catch (SQLException ex) {
             rm.rollbackTransactions(con);
             throw new prodavnica_exception("Failed to add new customer " + k, ex);
+        } finally {
+            rm.closeConnection(con);
+        }
+    }
+    
+    
+    
+    public String login(String username, String password) throws prodavnica_exception {
+        Connection con = null;
+        try {
+            con = rm.getConnection();
+            return korisnik_dao.getInstance().login(username, password, con);
+        } catch (SQLException ex) {
+            throw new prodavnica_exception("Neuspesno prijavljivanje  " + username, ex);
         } finally {
             rm.closeConnection(con);
         }
